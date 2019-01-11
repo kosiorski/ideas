@@ -18,7 +18,7 @@ public class Category {
 
   @NotBlank private String name;
 
-  @NotBlank private String description;
+  private String description;
 
   @OneToMany(mappedBy = "category")
   private List<Idea> ideas;

@@ -20,4 +20,5 @@ public class RepoUrl {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
+
 }

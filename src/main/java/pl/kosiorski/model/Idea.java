@@ -28,6 +28,8 @@ public class Idea {
 
   @UpdateTimestamp private LocalDateTime updated;
 
+  private int active;
+
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
@@ -38,7 +40,6 @@ public class Idea {
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
-
 
   @ManyToMany
   @JoinTable(
