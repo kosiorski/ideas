@@ -4,33 +4,54 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kosiorski.model.User;
-import pl.kosiorski.service.CategoryService;
-import pl.kosiorski.service.IdeaService;
-import pl.kosiorski.service.UserService;
+import pl.kosiorski.service.*;
 
 @Controller
 @RequestMapping(value = {"", "/homepage"})
 public class HomepageController {
 
   private final UserService userService;
-  private final CategoryService categoryService;
   private final IdeaService ideaService;
+  private final CategoryService categoryService;
+  private final LevelService levelService;
+  private final ToolService toolService;
 
   @Autowired
-  public HomepageController(UserService userService, CategoryService categoryService, IdeaService ideaService) {
+  public HomepageController(
+          UserService userService,
+          IdeaService ideaService, CategoryService categoryService,
+          LevelService levelService,
+          ToolService toolService) {
     this.userService = userService;
-    this.categoryService = categoryService;
     this.ideaService = ideaService;
+    this.categoryService = categoryService;
+    this.levelService = levelService;
+    this.toolService = toolService;
+  }
+
+  @ModelAttribute
+  public void modelAttributes(Model model) {
+    model.addAttribute("activeIdeas", ideaService.findAllActive());
+    }
+
+  @ModelAttribute("currentUser")
+  public User currentUser() {
+    try {
+      return userService.findCurrentLoggedUser();
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   @GetMapping
   public String userHome(Model model) {
 
-    model.addAttribute("categories", categoryService.findAll());
-    //TODO INACTIVE to admin, active to homepage
-    model.addAttribute("ideas", ideaService.findAllInactive());
+
+    // TODO INACTIVE to admin, active to homepage
+    //    model.addAttribute("ideas", ideaService.findAllInactive());
 
     try {
       User user = userService.findCurrentLoggedUser();

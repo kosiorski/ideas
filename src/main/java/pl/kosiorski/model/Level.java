@@ -19,8 +19,6 @@ public class Level {
     @NotBlank
     private String name;
 
-    private String description;
-
     @OneToMany(mappedBy = "level")
     private List<Idea> ideas;
 

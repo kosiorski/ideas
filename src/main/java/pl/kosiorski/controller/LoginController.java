@@ -54,13 +54,5 @@ public class LoginController {
     return "/registration";
   }
 
-  @GetMapping(value = "/admin/home")
-  public String adminHome(Model model) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    User user = userService.findUserByLogin(auth.getName());
-    model.addAttribute("userName", "Welcome " + user.getLogin() + " (" + user.getEmail() + ")");
-    model.addAttribute("adminMessage", "Content Available Only for Users with Admin Role");
-    model.addAttribute("admin/home");
-    return "/admin/home";
-  }
+
 }

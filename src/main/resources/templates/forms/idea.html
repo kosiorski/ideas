@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Idea Form</title>
+</head>
+<body>
+<div>
+    <!--/*@thymesVar id="idea" type="pl.kosiorski.model.Idea"*/-->
+    <form th:action="@{'/idea/add'}" th:object="${idea}" method="post">
+
+        <!--<input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>-->
+
+
+        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+        <input type="text" th:field="*{name}" placeholder="Name"/>
+
+
+        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
+        <input type="text" th:field="*{description}" placeholder="Description"/>
+
+
+        <select th:field="*{category}">
+            <option value=""> --</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:utext="${category.name}"></option>
+        </select>
+
+            <select th:field="*{level}">
+                <option value=""> --</option>
+                <option th:each="level : ${levels}"
+                        th:value="${level.id}"
+                        th:utext="${level.name}"></option>
+            </select>
+
+
+        <select multiple th:field="*{tools}">
+            <option value=""> --</option>
+            <option th:each="tool : ${tools}"
+
+                    th:value="${tool.id}"
+                    th:utext="${tool.name}"></option>
+        </select>
+
+
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</div>
+</body>
+</html>

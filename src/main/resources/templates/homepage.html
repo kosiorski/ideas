@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Home Page</title>
@@ -53,7 +54,18 @@
             </tbody>
 
         </table>
+
+        <div sec:authorize="isAuthenticated()">
+            <td><a th:href="@{'/idea/add'}" th:text="'Add your idea'"></a></td>
+        </div>
+
+
     </div>
+
+
+
+
+
 
 
     <form th:action="@{/logout}" method="get">

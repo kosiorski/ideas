@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 
 <head>
     <title>Admin Page</title>
@@ -28,6 +30,12 @@
             <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
         </div>
     </div>
+
+
+    <div sec:authorize="hasAuthority('ADMIN')">
+        widoczne tylko dla admina.
+    </div>
+
 
 </div>
 </body>

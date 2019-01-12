@@ -1,0 +1,39 @@
+package pl.kosiorski.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import pl.kosiorski.model.User;
+import pl.kosiorski.service.IdeaService;
+import pl.kosiorski.service.UserService;
+
+@Controller
+public class AdminHomepageController {
+  private final UserService userService;
+  private final IdeaService ideaService;
+
+  @Autowired
+  public AdminHomepageController(UserService userService, IdeaService ideaService) {
+    this.userService = userService;
+    this.ideaService = ideaService;
+  }
+
+  @ModelAttribute
+  public void modelAttributes(Model model) {
+    model.addAttribute("ideas", ideaService.findAllActive());
+  }
+
+  @GetMapping(value = "/admin/home")
+  public String adminHome(Model model) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userService.findUserByLogin(auth.getName());
+    model.addAttribute("userName", "Welcome " + user.getLogin() + " (" + user.getEmail() + ")");
+    model.addAttribute("adminMessage", "Content Available Only for Users with Admin Role");
+    model.addAttribute("admin/home");
+    return "/admin/home";
+  }
+}
