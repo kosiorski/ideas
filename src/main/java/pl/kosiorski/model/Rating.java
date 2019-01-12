@@ -6,7 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "ratings")
+@Table(
+    name = "ratings",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"idea_id", "user_id"}))
 public class Rating {
 
   @Id
@@ -14,8 +16,13 @@ public class Rating {
   @Column(name = "rating_id")
   private Long id;
 
-  @OneToOne(mappedBy = "rating")
+  @ManyToOne
+  @JoinColumn(name = "idea_id")
   private Idea idea;
 
-  private double value;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  private int value;
 }

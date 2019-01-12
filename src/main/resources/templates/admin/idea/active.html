@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+      mlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>ActiveIdeas</title>
+</head>
+<body>
+
+<div>
+    <table th:border="1" frame="1" th:width="80">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Difficulty</th>
+            <th>Ratting</th>
+            <th>Added by</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Edit</th>
+            <th>Action</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="idea, iterStat: ${active}" th:object="${idea}">
+
+            <td th:text="*{name}"></td>
+            <td th:text="*{description}"></td>
+            <td th:text="*{category.name}"></td>
+            <td th:text="*{level.name}"></td>
+            <td th:text="*{rating}"></td>
+            <td th:text="*{user.login}"></td>
+            <td th:text="*{created}"></td>
+            <td th:text="*{updated}"></td>
+
+            <td><a th:href="@{'edit/' + ${idea.id}}" th:text="'Edit idea'"></a></td>
+
+
+            <td>
+                <a th:href="@{'active/change-status/'+${idea.id}}">
+                    <span th:if="*{active}" th:text="'Deactivate'"></span>
+                    <span th:if="*{!active}" th:text="'Activate'"></span>
+                </a>
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+
+</body>
+</html>

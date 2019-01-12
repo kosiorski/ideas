@@ -8,7 +8,9 @@ import java.util.List;
 
 @Repository
 public interface IdeaRepository extends JpaRepository<Idea, Long> {
-    Idea findByName(String name);
+  Idea findByName(String name);
 
-    List<Idea> findAllByActiveContains(int value);
+  List<Idea> findAllByActiveTrue();
+
+  List<Idea> findAllByActiveFalse();
 }

@@ -32,10 +32,6 @@ public class HomepageController {
     this.toolService = toolService;
   }
 
-  @ModelAttribute
-  public void modelAttributes(Model model) {
-    model.addAttribute("activeIdeas", ideaService.findAllActive());
-    }
 
   @ModelAttribute("currentUser")
   public User currentUser() {
@@ -51,7 +47,7 @@ public class HomepageController {
 
 
     // TODO INACTIVE to admin, active to homepage
-    //    model.addAttribute("ideas", ideaService.findAllInactive());
+        model.addAttribute("ideas", ideaService.findAllActive());
 
     try {
       User user = userService.findCurrentLoggedUser();

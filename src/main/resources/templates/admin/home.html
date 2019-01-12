@@ -6,37 +6,28 @@
 
 <head>
     <title>Admin Page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
+
+
+    <div>
+        <p><a th:href="@{'/admin/idea/inactive'}" th:text="'Go to Inactive ideas'"></a></p>
+    </div>
+
+    <div>
+        <p><a th:href="@{'/admin/idea/active'}" th:text="'Go to Active ideas'"></a></p>
+    </div>
+
+
+
 
     <form th:action="@{/logout}" method="get">
         <button class="btn btn-md btn-danger btn-block" name="registration"
                 type="Submit">Logout
         </button>
     </form>
-
-    <div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-primary">
-
-            <div class="panel-heading">
-                <span th:utext="${userName}"></span>
-            </div>
-            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
-        </div>
-    </div>
-
-
-    <div sec:authorize="hasAuthority('ADMIN')">
-        widoczne tylko dla admina.
-    </div>
-
-
 </div>
 </body>
 </html>

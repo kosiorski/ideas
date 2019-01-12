@@ -28,7 +28,10 @@ public class Idea {
 
   @UpdateTimestamp private LocalDateTime updated;
 
-  private int active;
+  private boolean active;
+
+  private double rating;
+
 
   @ManyToOne
   @JoinColumn(name = "user_id")
@@ -48,11 +51,18 @@ public class Idea {
       inverseJoinColumns = @JoinColumn(name = "tool_id"))
   private List<Tool> tools = new ArrayList<>();
 
-  @OneToOne
-  @JoinColumn(name = "rating_id")
-  private Rating rating;
+  @OneToMany(mappedBy = "idea")
+  private List<Rating> ratings;
 
   @ManyToOne
   @JoinColumn(name = "level_id")
   private Level level;
+
+  public Boolean getActive() {
+    return active;
+  }
+
+  public void setActive(Boolean active) {
+    this.active = active;
+  }
 }

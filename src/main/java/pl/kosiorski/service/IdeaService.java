@@ -19,4 +19,6 @@ public interface IdeaService {
   Idea update(Idea idea);
 
   void delete(Idea idea);
+
+  void changeActive (Long id);
 }

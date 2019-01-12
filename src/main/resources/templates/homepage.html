@@ -44,11 +44,11 @@
             </thead>
 
             <tbody>
-            <tr th:each="activity, iterStat: ${ideas}" th:object="${idea}">
-                <td th:text="*{name}"></td>
-                <td th:text="*{categoty.name}"></td>
+            <tr th:each="idea, iterStat: ${ideas}" th:object="${idea}">
+                <td><a th:href="@{'idea/' + ${idea.id}}" th:text="${idea.name}"></a></td>
+                <td th:text="*{category.name}"></td>
                 <td th:text="*{level.name}"></td>
-                <td th:text="*{ratting.value}"></td>
+                <td th:text="*{rating}"></td>
                 <td th:text="*{user.login}"></td>
             </tr>
             </tbody>
@@ -63,6 +63,9 @@
     </div>
 
 
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <p><a th:href="@{'/admin/home'}" th:text="'Go Admin Home'"></a></p>
+    </div>
 
 
 
