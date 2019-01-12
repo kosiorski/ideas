@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="main-layout">
+<div layout:fragment="content">
+
+
+    <form th:action="@{/user/add}" method="post" th:object="${user}">
+        <p>Name: <input th:type="text" th:field="*{firstName}"/></p>
+        <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName Error</p>
+        <p>Surname: <input th:type="text" th:field="*{lastName}"/></p>
+        <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</p>
+        <p>Login: <input th:type="text" th:field="*{login}"/></p>
+        <p th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</p>
+        <p>Password: <input th:type="password" th:field="*{password}"/></p>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</div>
+</html>

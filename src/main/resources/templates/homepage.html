@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Admin Page</title>
+    <title>Home Page</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -27,6 +27,34 @@
     <div class="panel-heading">
         <span th:utext="${userName}"></span>
     </div>
+
+    <h1>Ideas: </h1>
+
+    <div>
+        <table th:border="1" frame="1" th:width="80">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Difficulty</th>
+                <th>Ratting</th>
+                <th>Added by:</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="activity, iterStat: ${ideas}" th:object="${idea}">
+                <td th:text="*{name}"></td>
+                <td th:text="*{categoty.name}"></td>
+                <td th:text="*{level.name}"></td>
+                <td th:text="*{ratting.value}"></td>
+                <td th:text="*{user.login}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
 
     <form th:action="@{/logout}" method="get">
         <button class="btn btn-md btn-danger btn-block" name="registration"

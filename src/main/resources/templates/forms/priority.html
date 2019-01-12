@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>New Priority form</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{'/priority/add'}" th:object="${priority}" method="post">
+        <p>Name: <input th:type="text" th:field="*{name}"/></p>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</div>
+</body>
+</html>

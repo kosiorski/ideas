@@ -1,6 +1,9 @@
 package pl.kosiorski.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.kosiorski.model.Role;
@@ -42,5 +45,16 @@ public class UserServiceImpl implements UserService {
     Role userRole = roleRepository.findByRole("USER");
     user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
     userRepository.save(user);
+  }
+
+  @Override
+  public User findCurrentLoggedUser() {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    User user = userRepository.findByLogin(auth.getName());
+    if (user == null) {
+      throw new UsernameNotFoundException("You dont have authorization, try to login ");
+    }
+
+    return user;
   }
 }

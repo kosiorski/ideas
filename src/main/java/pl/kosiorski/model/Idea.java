@@ -54,5 +54,5 @@ public class Idea {
 
   @ManyToOne
   @JoinColumn(name = "level_id")
-  private Level levels;
+  private Level level;
 }

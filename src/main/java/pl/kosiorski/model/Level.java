@@ -21,7 +21,7 @@ public class Level {
 
     private String description;
 
-    @OneToMany(mappedBy = "levels")
+    @OneToMany(mappedBy = "level")
     private List<Idea> ideas;
 
 
