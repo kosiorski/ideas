@@ -19,6 +19,7 @@ public class IdeaController {
   private final CategoryService categoryService;
   private final LevelService levelService;
   private final ToolService toolService;
+  private final RatingService ratingService;
 
   @Autowired
   public IdeaController(
@@ -26,12 +27,14 @@ public class IdeaController {
       UserService userService,
       CategoryService categoryService,
       LevelService levelService,
-      ToolService toolService) {
+      ToolService toolService,
+      RatingService ratingService) {
     this.ideaService = ideaService;
     this.userService = userService;
     this.categoryService = categoryService;
     this.levelService = levelService;
     this.toolService = toolService;
+    this.ratingService = ratingService;
   }
 
   @ModelAttribute
@@ -58,12 +61,23 @@ public class IdeaController {
     idea.setUser(userService.findCurrentLoggedUser());
     ideaService.save(idea);
 
-    return "redirect:/" ;
+    return "redirect:/";
   }
 
   @GetMapping("/{id}")
-  public String projectDetails(@PathVariable Long id, Model model){
+  public String projectDetails(@PathVariable Long id, Model model) {
     model.addAttribute("idea", ideaService.findById(id));
     return "idea/details";
+  }
+
+  @GetMapping(path = "/{id}/{rate}")
+  public String activate(@PathVariable Long ideaId, @PathVariable int rate, Model model) {
+    Long userId = userService.findCurrentLoggedUser().getId();
+
+    Double newRating = ratingService.countRating(userId, rate, ideaId);
+    Idea idea = ideaService.findById(ideaId);
+    idea.setRating(newRating);
+
+    return "redirect:/" + ideaId;
   }
 }
