@@ -9,20 +9,59 @@
 <body>
 
 
-<form th:action="@{'/' + ${value}}" method="get">
-    <label>
-        <select>
-            <option th:value="1" th:text="1"></option>
-            <option th:value="2" th:text="2"></option>
-            <option th:value="3" th:text="3"></option>
-            <option th:value="4" th:text="4"></option>
-            <option th:value="5" th:text="5"></option>
-        </select>
-    </label>
+<td th:text="*{idea.name}"></td>
+
+<td th:text="*{idea.description}"></td>
+
+<td th:text="*{idea.id}"></td>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Content</th>
+        <th>Written by</th>
+        <th>Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comment, iterStat: ${comments}" th:object="${comment}">
+        <td th:text="*{content}"></td>
+        <td th:text="*{user.login}"></td>
+        <td th:text="*{created}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<form th:action="@{'comment/add/' + ${idea.id}}" th:object="${comment}" method="post">
+
+    <!--/*@thymesVar id="comment" type="pl.kosiorski.model.Comment"*/-->
+
+
+
+    <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
+    <input type="text" th:field="*{content}" placeholder="Comment"/>
+
+
     <p><input type="submit" value="Submit"/></p>
 </form>
 
-<td th:text="*{rating}"></td>
+
+<!--<form th:action="@{/value}" method="get">-->
+<!--<label>-->
+<!--<select name='value'>-->
+<!--<option th:value="1" th:text="1"></option>-->
+<!--<option th:value="2" th:text="2"></option>-->
+<!--<option th:value="3" th:text="3"></option>-->
+<!--<option th:value="4" th:text="4"></option>-->
+<!--<option th:value="5" th:text="5"></option>-->
+<!--</select>-->
+<!--</label>-->
+<!--<p><input type="submit" value="Submit"/></p>-->
+<!--</form>-->
+
+<!--<td th:text="*{rating}"></td>-->
 
 </body>
 </html>

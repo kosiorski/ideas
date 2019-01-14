@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.kosiorski.model.Comment;
 import pl.kosiorski.model.Idea;
 import pl.kosiorski.service.*;
 
@@ -20,6 +21,7 @@ public class IdeaController {
   private final LevelService levelService;
   private final ToolService toolService;
   private final RatingService ratingService;
+  private final CommentService commentService;
 
   @Autowired
   public IdeaController(
@@ -28,13 +30,15 @@ public class IdeaController {
       CategoryService categoryService,
       LevelService levelService,
       ToolService toolService,
-      RatingService ratingService) {
+      RatingService ratingService,
+      CommentService commentService) {
     this.ideaService = ideaService;
     this.userService = userService;
     this.categoryService = categoryService;
     this.levelService = levelService;
     this.toolService = toolService;
     this.ratingService = ratingService;
+    this.commentService = commentService;
   }
 
   @ModelAttribute
@@ -66,18 +70,14 @@ public class IdeaController {
 
   @GetMapping("/{id}")
   public String projectDetails(@PathVariable Long id, Model model) {
+
+    Comment comment = new Comment();
+
+
+    model.addAttribute("comment", comment);
     model.addAttribute("idea", ideaService.findById(id));
+    model.addAttribute("comments", commentService.findAllByIdeaId(id));
+
     return "idea/details";
-  }
-
-  @GetMapping(path = "/{id}/{rate}")
-  public String activate(@PathVariable Long ideaId, @PathVariable int rate, Model model) {
-    Long userId = userService.findCurrentLoggedUser().getId();
-
-    Double newRating = ratingService.countRating(userId, rate, ideaId);
-    Idea idea = ideaService.findById(ideaId);
-    idea.setRating(newRating);
-
-    return "redirect:/" + ideaId;
   }
 }

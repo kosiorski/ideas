@@ -7,8 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-@Data
+
 @Entity
+@Data
 @Table(name = "activities")
 public class Activity {
 

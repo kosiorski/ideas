@@ -36,7 +36,16 @@ public class RatingServiceImpl implements RatingService {
 
     Rating rating = new Rating();
 
-    LinkedList<Rating> ratings = ratingRepository.findAll();
+    LinkedList<Rating> ratings = new LinkedList<>();
+
+    try{
+        ratings = ratingRepository.findAll();
+    }
+    catch (NullPointerException e){
+      System.out.println(e.getMessage());
+    }
+
+
     rating.setValue(userRate);
     rating.setUser(userRepository.findById(userId).get());
     rating.setIdea(ideaRepository.findById(ideaId).get());
