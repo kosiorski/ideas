@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.kosiorski.model.Activity;
 import pl.kosiorski.model.Comment;
 import pl.kosiorski.model.Idea;
+import pl.kosiorski.model.User;
 import pl.kosiorski.service.*;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ public class IdeaController {
   private final ToolService toolService;
   private final RatingService ratingService;
   private final CommentService commentService;
+  private final ActivityService activityService;
 
   @Autowired
   public IdeaController(
@@ -31,7 +34,8 @@ public class IdeaController {
       LevelService levelService,
       ToolService toolService,
       RatingService ratingService,
-      CommentService commentService) {
+      CommentService commentService,
+      ActivityService activityService) {
     this.ideaService = ideaService;
     this.userService = userService;
     this.categoryService = categoryService;
@@ -39,6 +43,7 @@ public class IdeaController {
     this.toolService = toolService;
     this.ratingService = ratingService;
     this.commentService = commentService;
+    this.activityService = activityService;
   }
 
   @ModelAttribute
@@ -62,8 +67,13 @@ public class IdeaController {
     if (result.hasErrors()) {
       return "forms/idea";
     }
-    idea.setUser(userService.findCurrentLoggedUser());
+    User currentUser = userService.findCurrentLoggedUser();
+    idea.setUser(currentUser);
     ideaService.save(idea);
+
+    Activity activity = new Activity();
+    activity.setContent("User " + currentUser.getLogin() + " has added a new idea");
+    activityService.save(activity);
 
     return "redirect:/";
   }
@@ -72,7 +82,6 @@ public class IdeaController {
   public String projectDetails(@PathVariable Long id, Model model) {
 
     Comment comment = new Comment();
-
 
     model.addAttribute("comment", comment);
     model.addAttribute("idea", ideaService.findById(id));

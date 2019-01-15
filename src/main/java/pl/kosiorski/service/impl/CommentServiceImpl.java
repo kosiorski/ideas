@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public List<Comment> findAllByIdeaId(Long id) {
-    return commentRepository.findAllByIdeaIdOrderByCreatedDesc(id);
+    return commentRepository.findAllByIdeaIdOrderByCreatedAsc(id);
   }
 
   @Override

@@ -3,24 +3,26 @@ package pl.kosiorski.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.kosiorski.model.Activity;
 import pl.kosiorski.model.User;
+import pl.kosiorski.service.ActivityService;
 import pl.kosiorski.service.UserService;
 
 @Controller
 public class LoginController {
 
   private final UserService userService;
+  private final ActivityService activityService;
 
   @Autowired
-  public LoginController(UserService userService) {
+  public LoginController(UserService userService, ActivityService activityService) {
     this.userService = userService;
+    this.activityService = activityService;
   }
 
   @GetMapping(value = {"/login"})
@@ -50,6 +52,11 @@ public class LoginController {
       model.addAttribute("successMessage", "User has been registered successfully");
       model.addAttribute("user", new User());
       model.addAttribute("registration");
+
+      Activity activity = new Activity();
+      activity.setContent("A new user with login " + user.getLogin() + " has registered");
+      activityService.save(activity);
+
     }
     return "/registration";
   }

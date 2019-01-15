@@ -34,11 +34,11 @@
     <h1>Ideas: </h1>
 
 
-
     <div>
-        <table class="zebra">
+        <table>
             <thead>
             <tr>
+                <th>Id</th>
                 <th>Title</th>
                 <th>Category</th>
                 <th>Difficulty</th>
@@ -49,6 +49,7 @@
 
             <tbody>
             <tr th:each="idea, iterStat: ${ideas}" th:object="${idea}">
+                <td th:text="*{id}"></td>
                 <td><a th:href="@{'idea/' + ${idea.id}}" th:text="${idea.name}"></a></td>
                 <td th:text="*{category.name}"></td>
                 <td th:text="*{level.name}"></td>
@@ -72,7 +73,41 @@
     </div>
 
 
+    <hr>
 
+
+    <h1>Last acvtivities: </h1>
+
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Content</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="activity, iterStat: ${activities}" th:object="${activity}">
+                <td th:text="*{content}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <hr>
+
+    <h1>Daily Challenge: </h1>
+
+
+    <div>
+        <p>Challenge: <span th:text="*{boredActivity.activity}"></span>.</p>
+        <p>Type: <span th:text="*{boredActivity.type}"></span>.</p>
+        <p>Number of people involved : <span th:text="*{boredActivity.participants}"></span>.</p>
+        <p>Price (factor 0 is free, 1 is expensive): <span th:text="*{boredActivity.price}"></span>.</p>
+
+    </div>
 
 
     <form th:action="@{/logout}" method="get">
