@@ -85,7 +85,7 @@ public class IdeaController {
 
     model.addAttribute("comment", comment);
     model.addAttribute("idea", ideaService.findById(id));
-    model.addAttribute("comments", commentService.findAllByIdeaId(id));
+    model.addAttribute("comments", commentService.findAllActiveByIdeaId(id));
 
     return "idea/details";
   }

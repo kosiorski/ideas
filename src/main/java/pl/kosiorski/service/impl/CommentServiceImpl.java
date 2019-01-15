@@ -17,13 +17,24 @@ public class CommentServiceImpl implements CommentService {
     this.commentRepository = commentRepository;
   }
 
-  @Override
-  public List<Comment> findAllByIdeaId(Long id) {
-    return commentRepository.findAllByIdeaIdOrderByCreatedAsc(id);
-  }
+//  @Override
+//  public List<Comment> findAllByIdeaId(Long id) {
+//    return commentRepository.findAllByIdeaIdOrderByCreatedAsc(id);
+//  }
 
   @Override
   public void save(Comment comment) {
+    comment.setActive(true);
     commentRepository.save(comment);
+  }
+
+  @Override
+  public List<Comment> findAllActiveByIdeaId(Long id) {
+    return commentRepository.findAllByActiveTrueAndIdeaIdOrderByCreatedAsc(id);
+  }
+
+  @Override
+  public List<Comment> findAllInactiveByIdeaId(Long id) {
+    return commentRepository.findAllByActiveFalseAndIdeaIdOrderByCreatedAsc(id);
   }
 }

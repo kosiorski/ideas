@@ -13,8 +13,6 @@
 
 <td th:text="*{idea.description}"></td>
 
-<td th:text="*{idea.id}"></td>
-
 
 <table>
     <thead>
@@ -37,7 +35,6 @@
 <form th:action="@{'comment/add/' + ${idea.id}}" th:object="${comment}" method="post">
 
     <!--/*@thymesVar id="comment" type="pl.kosiorski.model.Comment"*/-->
-
 
 
     <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>

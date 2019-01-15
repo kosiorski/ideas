@@ -28,10 +28,7 @@ public class Idea {
 
   @UpdateTimestamp private LocalDateTime updated;
 
-  private boolean active;
-
   private double rating;
-
 
   @ManyToOne
   @JoinColumn(name = "user_id")
@@ -57,6 +54,8 @@ public class Idea {
   @ManyToOne
   @JoinColumn(name = "level_id")
   private Level level;
+
+  private boolean active;
 
   public Boolean getActive() {
     return active;
