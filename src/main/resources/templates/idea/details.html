@@ -32,9 +32,12 @@
 </table>
 
 
-<form th:action="@{'comment/add/' + ${idea.id}}" th:object="${comment}" method="post">
+<form th:action="@{'comment/add/'}" th:object="${comment}" method="post">
 
     <!--/*@thymesVar id="comment" type="pl.kosiorski.model.Comment"*/-->
+
+    <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
+    <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
 
 
     <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
@@ -49,7 +52,11 @@
     <p><a th:href="@{'/homepage'}" th:text="'Return to Home Page'"></a></p>
 </div>
 
-<form th:action="@{'rating/add/' + ${idea.id}}" th:object="${rating}" method="post">
+<form th:action="@{'rating/add/'}" th:object="${rating}" method="post">
+
+    <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
+    <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
+
     <label>
         <select name='value'>
             <option th:value="1" th:text="1"></option>

@@ -6,7 +6,7 @@ import pl.kosiorski.model.User;
 
 public interface RatingService {
 
-  double countRating(Long ideaId);
+  double countRating(Idea idea);
 
   void save(Rating rating);
 }

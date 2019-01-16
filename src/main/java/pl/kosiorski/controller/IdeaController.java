@@ -58,7 +58,6 @@ public class IdeaController {
   }
 
   @PostMapping("/add")
-  //  @Secured({ "ADMIN", "USER" })
   public String addIdea(@Valid Idea idea, BindingResult result) {
 
     if (result.hasErrors()) {
@@ -75,18 +74,24 @@ public class IdeaController {
     return "redirect:/";
   }
 
-  @GetMapping("/{id}")
-  public String projectDetails(@PathVariable Long id, Model model) {
+  @GetMapping("/{ideaId}")
+  public String ideaDetails(@PathVariable Long ideaId, Model model) {
+
+    User currentUser = userService.findCurrentLoggedUser();
+    Idea currentIdea = ideaService.findById(ideaId);
 
     Comment comment = new Comment();
+    comment.setUser(currentUser);
+    comment.setIdea(currentIdea);
+
     Rating rating = new Rating();
-
-
+    rating.setUser(currentUser);
+    rating.setIdea(currentIdea);
 
     model.addAttribute("comment", comment);
     model.addAttribute("rating", rating);
-    model.addAttribute("idea", ideaService.findById(id));
-    model.addAttribute("comments", commentService.findAllActiveByIdeaId(id));
+    model.addAttribute("idea", currentIdea);
+    model.addAttribute("comments", commentService.findAllActiveByIdeaId(ideaId));
 
     return "idea/details";
   }

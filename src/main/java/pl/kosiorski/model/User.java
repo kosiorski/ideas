@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @Table(name = "users")
 public class User {
 

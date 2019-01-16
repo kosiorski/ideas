@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import pl.kosiorski.model.BoredActivity;
 import pl.kosiorski.model.User;
@@ -18,24 +19,13 @@ public class HomepageController {
 
   private final UserService userService;
   private final IdeaService ideaService;
-  private final CategoryService categoryService;
-  private final LevelService levelService;
-  private final ToolService toolService;
   private final ActivityService activityService;
 
   @Autowired
   public HomepageController(
-      UserService userService,
-      IdeaService ideaService,
-      CategoryService categoryService,
-      LevelService levelService,
-      ToolService toolService,
-      ActivityService activityService) {
+      UserService userService, IdeaService ideaService, ActivityService activityService) {
     this.userService = userService;
     this.ideaService = ideaService;
-    this.categoryService = categoryService;
-    this.levelService = levelService;
-    this.toolService = toolService;
     this.activityService = activityService;
   }
 
@@ -58,11 +48,15 @@ public class HomepageController {
   }
 
   @GetMapping
-  public String userHome(Model model) {
+  public String userHome(Model model, @RequestParam(required = false) String sortBy) {
 
     model.addAttribute("ideas", ideaService.findAllActive());
     model.addAttribute("activities", activityService.lastTen());
     model.addAttribute("boredActivity", getBoredActivity());
+
+
+    //TODO ideas sorting
+
 
     try {
       User user = userService.findCurrentLoggedUser();

@@ -1,13 +1,16 @@
 package pl.kosiorski.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "levels")
 public class Level {
 

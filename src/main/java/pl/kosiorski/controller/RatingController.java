@@ -13,53 +13,46 @@ import pl.kosiorski.service.RatingService;
 import pl.kosiorski.service.UserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("/idea/rating")
 class RatingController {
   private final IdeaService ideaService;
-  private final UserService userService;
   private final RatingService ratingService;
   private final ActivityService activityService;
 
   @Autowired
   RatingController(
       IdeaService ideaService,
-      UserService userService,
       RatingService ratingService,
       ActivityService activityService) {
     this.ideaService = ideaService;
-    this.userService = userService;
     this.ratingService = ratingService;
     this.activityService = activityService;
   }
 
-  @PostMapping("/add/{id}")
-  public String addRating(
-      @Valid Rating rating, BindingResult result, @PathVariable Long id, Principal principal) {
+  @PostMapping("/add")
+  public String addRating(@Valid Rating rating, BindingResult result) {
+
+    Idea idea = rating.getIdea();
 
     if (result.hasErrors()) {
-      return "idea/" + id;
+      return "idea/" + idea.getId();
     }
-
-    Idea currentIdea = ideaService.findById(id);
-    User currentUser = userService.findCurrentLoggedUser();
-
-    rating.setUser(currentUser);
-    rating.setIdea(currentIdea);
 
     ratingService.save(rating);
 
-    double newIdeaRating = ratingService.countRating(id);
-    currentIdea.setRating(newIdeaRating);
-    currentIdea.setActive(true);
+    double newIdeaRating = ratingService.countRating(idea);
+    idea.setRating(newIdeaRating);
+    ideaService.saveWithoutActions(idea);
 
-    System.out.println(currentIdea.getRating());
+    Activity activity = new Activity();
+    activity.setContent(
+        "User " + rating.getUser().getLogin()
+            + " has rated the idea with id " + rating.getIdea().getId()
+            + " a " + rating.getValue());
+    activityService.save(activity);
 
-    ideaService.saveWithoutActions(currentIdea);
-
-//    return "redirect:/idea/" + id;
-    return "redirect:/";
+    return "redirect:/idea/" + idea.getId();
   }
 }
