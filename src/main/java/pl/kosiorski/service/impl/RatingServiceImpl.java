@@ -8,12 +8,9 @@ import pl.kosiorski.model.User;
 import pl.kosiorski.repository.IdeaRepository;
 import pl.kosiorski.repository.RatingRepository;
 import pl.kosiorski.repository.UserRepository;
-import pl.kosiorski.service.IdeaService;
 import pl.kosiorski.service.RatingService;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RatingServiceImpl implements RatingService {
@@ -32,37 +29,23 @@ public class RatingServiceImpl implements RatingService {
   }
 
   @Override
-  public Double countRating(Long userId, int userRate, Long ideaId) {
+  public double countRating(Long ideaId) {
 
-    Rating rating = new Rating();
-
-    LinkedList<Rating> ratings = new LinkedList<>();
-
-    try{
-        ratings = ratingRepository.findAll();
-    }
-    catch (NullPointerException e){
-      System.out.println(e.getMessage());
-    }
-
-
-    rating.setValue(userRate);
-    rating.setUser(userRepository.findById(userId).get());
-    rating.setIdea(ideaRepository.findById(ideaId).get());
-    ratings.add(rating);
-    ratingRepository.save(rating);
-
-    LinkedList<Rating> ratingsToCount = ratingRepository.findAll();
+    List<Rating> ratings = ratingRepository.findAllByIdeaId(ideaId);
 
     long sum = 0L;
-    double result = 0;
+    double result;
 
-    for (int i = 0; i < ratingsToCount.size(); i++) {
-      sum += ratings.get(i).getValue();
+    for (Rating rating : ratings) {
+      sum += rating.getValue();
     }
 
-    result = (double) sum / ratingsToCount.size();
-
+    result = (double) sum / ratings.size();
     return result;
+  }
+
+  @Override
+  public void save(Rating rating) {
+    ratingRepository.save(rating);
   }
 }

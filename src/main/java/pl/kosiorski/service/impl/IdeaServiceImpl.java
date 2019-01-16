@@ -8,7 +8,6 @@ import pl.kosiorski.service.IdeaService;
 import pl.kosiorski.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class IdeaServiceImpl implements IdeaService {
@@ -46,6 +45,11 @@ public class IdeaServiceImpl implements IdeaService {
   public Idea save(Idea idea) {
     idea.setActive(false);
     idea.setRating(0.0);
+    return ideaRepository.save(idea);
+  }
+
+  @Override
+  public Idea saveWithoutActions(Idea idea) {
     return ideaRepository.save(idea);
   }
 

@@ -49,21 +49,20 @@
     <p><a th:href="@{'/homepage'}" th:text="'Return to Home Page'"></a></p>
 </div>
 
+<form th:action="@{'rating/add/' + ${idea.id}}" th:object="${rating}" method="post">
+    <label>
+        <select name='value'>
+            <option th:value="1" th:text="1"></option>
+            <option th:value="2" th:text="2"></option>
+            <option th:value="3" th:text="3"></option>
+            <option th:value="4" th:text="4"></option>
+            <option th:value="5" th:text="5"></option>
+        </select>
+    </label>
+    <p><input type="submit" value="Submit"/></p>
+</form>
 
-<!--<form th:action="@{/value}" method="get">-->
-<!--<label>-->
-<!--<select name='value'>-->
-<!--<option th:value="1" th:text="1"></option>-->
-<!--<option th:value="2" th:text="2"></option>-->
-<!--<option th:value="3" th:text="3"></option>-->
-<!--<option th:value="4" th:text="4"></option>-->
-<!--<option th:value="5" th:text="5"></option>-->
-<!--</select>-->
-<!--</label>-->
-<!--<p><input type="submit" value="Submit"/></p>-->
-<!--</form>-->
-
-<!--<td th:text="*{rating}"></td>-->
+<td th:text="*{idea.rating}"></td>
 
 </body>
 </html>

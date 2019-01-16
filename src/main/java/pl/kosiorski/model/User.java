@@ -1,6 +1,8 @@
 package pl.kosiorski.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -9,7 +11,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -51,4 +54,5 @@ public class User {
 
   @OneToMany(mappedBy = "user")
   private List<RepoUrl> repos;
+
 }

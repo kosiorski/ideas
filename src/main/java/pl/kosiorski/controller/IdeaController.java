@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.kosiorski.model.Activity;
-import pl.kosiorski.model.Comment;
-import pl.kosiorski.model.Idea;
-import pl.kosiorski.model.User;
+import pl.kosiorski.model.*;
 import pl.kosiorski.service.*;
 
 import javax.validation.Valid;
@@ -82,8 +79,12 @@ public class IdeaController {
   public String projectDetails(@PathVariable Long id, Model model) {
 
     Comment comment = new Comment();
+    Rating rating = new Rating();
+
+
 
     model.addAttribute("comment", comment);
+    model.addAttribute("rating", rating);
     model.addAttribute("idea", ideaService.findById(id));
     model.addAttribute("comments", commentService.findAllActiveByIdeaId(id));
 

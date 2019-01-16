@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-  List<Comment> findAllByIdeaIdOrderByCreatedAsc(Long id);
-
   List<Comment> findAllByActiveTrueAndIdeaIdOrderByCreatedAsc(Long id);
 
   List<Comment> findAllByActiveFalseAndIdeaIdOrderByCreatedAsc(Long id);

@@ -48,15 +48,19 @@ public class CommentController {
     comment.setContent(form.getContent());
 
     Idea currentIdea = ideaService.findById(id);
+
     comment.setIdea(currentIdea);
+
     User currentUser = userService.findCurrentLoggedUser();
     comment.setUser(currentUser);
     commentService.save(comment);
 
     Activity activity = new Activity();
     activity.setContent(
-        "User " + currentUser.getLogin()
-            + " has added a comment to idea with id " + currentIdea.getId());
+        "User "
+            + currentUser.getLogin()
+            + " has added a comment to idea with id "
+            + currentIdea.getId());
     activityService.save(activity);
 
     return "redirect:/idea/" + id;
