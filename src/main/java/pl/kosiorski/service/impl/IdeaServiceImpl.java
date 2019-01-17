@@ -42,6 +42,40 @@ public class IdeaServiceImpl implements IdeaService {
   }
 
   @Override
+  public List<Idea> findAllOrderByName() {
+    return ideaRepository.findAllByActiveTrueOrderByNameAsc();
+  }
+
+  @Override
+  public List<Idea> findAllOrderByRating() {
+    return ideaRepository.findAllByActiveTrueOrderByRatingDesc();
+  }
+
+  @Override
+  public List<Idea> findAllByLevelName(String levelName) {
+
+    List<Idea> filteredIdeas = null;
+    switch (levelName) {
+      case "easy":
+        filteredIdeas = ideaRepository.findAllByActiveTrueAndLevelName("EASY");
+        break;
+
+      case "medium":
+        filteredIdeas = ideaRepository.findAllByActiveTrueAndLevelName("MEDIUM");
+        break;
+
+      case "hard":
+        filteredIdeas = ideaRepository.findAllByActiveTrueAndLevelName("HARD");
+        break;
+
+      default:
+        filteredIdeas = ideaRepository.findAll();
+        break;
+    }
+    return filteredIdeas;
+  }
+
+  @Override
   public Idea save(Idea idea) {
     idea.setActive(false);
     idea.setRating(0.0);

@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import pl.kosiorski.model.BoredActivity;
+import pl.kosiorski.model.Idea;
 import pl.kosiorski.model.User;
 import pl.kosiorski.service.*;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"", "/homepage"})
@@ -50,13 +53,39 @@ public class HomepageController {
   @GetMapping
   public String userHome(Model model, @RequestParam(required = false) String sortBy) {
 
-    model.addAttribute("ideas", ideaService.findAllActive());
+    List<Idea> ideas = null;
+
+    if (sortBy != null) {
+      switch (sortBy) {
+        case "id":
+          ideas = ideaService.findAllActive();
+          break;
+
+        case "rating":
+          ideas = ideaService.findAllOrderByRating();
+          break;
+
+        case "name":
+          ideas = ideaService.findAllOrderByName();
+          break;
+
+        case "easy":
+          ideas = ideaService.findAllByLevelName(sortBy);
+
+        case "medium":
+          ideas = ideaService.findAllByLevelName(sortBy);
+          break;
+
+        case "hard":
+          ideas = ideaService.findAllByLevelName(sortBy);
+      }
+    } else {
+      ideas = ideaService.findAllActive();
+    }
+
+    model.addAttribute("ideas", ideas);
     model.addAttribute("activities", activityService.lastTen());
     model.addAttribute("boredActivity", getBoredActivity());
-
-
-    //TODO ideas sorting
-
 
     try {
       User user = userService.findCurrentLoggedUser();

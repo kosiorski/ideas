@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" href="/">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -55,68 +55,98 @@
 
 <div class="container">
 
-    <div class="panel-heading">
-        <span th:utext="${userName}"></span>
-    </div>
+    <div class="row">
+        <div class="col">
 
-    <h3>Ideas: </h3>
+            <div class="panel-heading">
+                <span th:utext="${userName}"></span>
+            </div>
+
+            <h3>Ideas: </h3>
 
 
-    <div class="row col-md-7 table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Difficulty</th>
-                <th>Ratting</th>
-                <th>Added by:</th>
-            </tr>
-            </thead>
+            <div class="table-responsive">
 
-            <tbody>
-            <tr th:each="idea, iterStat: ${ideas}" th:object="${idea}">
-                <td th:text="*{id}"></td>
-                <td><a th:href="@{'idea/' + ${idea.id}}" th:text="${idea.name}"></a></td>
-                <td th:text="*{category.name}"></td>
-                <td th:text="*{level.name}"></td>
-                <td th:text="*{rating}"></td>
-                <td th:text="*{user.login}"></td>
-            </tr>
-            </tbody>
+                Sort By :
+                <a th:href="@{'/?sortBy=id'}" th:text="Id"></a>
+                <a th:href="@{'/?sortBy=rating'}" th:text="Rating"></a>
+                <a th:href="@{'/?sortBy=name'}" th:text="Name"></a>
 
-        </table>
+                Filter By:
+                <label>
+                    <select onchange="if (this.value) window.location.href=this.value">
+                        <option value="" disabled selected>difficulty</option>
+                        <option value="/?sortBy=easy">Easy</option>
+                        <option value="/?sortBy=medium">Medium</option>
+                        <option value="/?sortBy=hard">Hard</option>
+                    </select>
+                </label>
 
-        <div sec:authorize="isAuthenticated()">
-            <td><a th:href="@{'/idea/add'}" th:text="'Add your idea'"></a></td>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Difficulty</th>
+                        <th>Ratting</th>
+                        <th>Added by:</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="idea, iterStat: ${ideas}" th:object="${idea}">
+                        <td th:text="*{id}"></td>
+                        <td><a th:href="@{'idea/' + ${idea.id}}" th:text="${idea.name}"></a></td>
+                        <td th:text="*{category.name}"></td>
+                        <td th:text="*{level.name}"></td>
+                        <td th:text="*{rating}"></td>
+                        <td th:text="*{user.login}"></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+                <div sec:authorize="isAuthenticated()">
+                    <td><a th:href="@{'/idea/add'}" th:text="'Add your idea'"></a></td>
+                </div>
+
+            </div>
         </div>
 
+        <div class="col">
+            <h3>Daily Challenge: </h3>
+            <br>
+            <div class="table-responsive">
+                <p>Challenge: <span th:text="*{boredActivity.activity}"></span>.</p>
+                <hr>
+                <p>Type: <span th:text="*{boredActivity.type}"></span>.</p>
+                <hr>
+                <p>Number of people involved : <span th:text="*{boredActivity.participants}"></span>.</p>
+                <hr>
+                <p>Price (factor 0 is free, 1 is expensive): <span th:text="*{boredActivity.price}"></span>.</p>
+            </div>
+        </div>
     </div>
 
     <hr>
 
-    <h3>Last acvtivities: </h3>
-    <div class="row col-md-7 table-responsive">
-        <table class="table">
+    <div class="row">
+        <div class="col">
+            <h3>Last acvtivities: </h3>
 
-            <tbody>
-            <tr th:each="activity, iterStat: ${activities}" th:object="${activity}">
-                <td th:text="*{content}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+            <div class="table-responsive">
+                <table class="table">
 
-    <hr>
-
-    <h3>Daily Challenge: </h3>
-    <div class="row col-md-7 table-responsive">
-        <p>Challenge: <span th:text="*{boredActivity.activity}"></span>.</p>
-        <p>Type: <span th:text="*{boredActivity.type}"></span>.</p>
-        <p>Number of people involved : <span th:text="*{boredActivity.participants}"></span>.</p>
-        <p>Price (factor 0 is free, 1 is expensive): <span th:text="*{boredActivity.price}"></span>.</p>
-
+                    <tbody>
+                    <tr th:each="activity, iterStat: ${activities}" th:object="${activity}">
+                        <td th:text="*{content}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -15,6 +15,12 @@ public interface IdeaService {
 
   List<Idea> findAllInactive();
 
+  List<Idea> findAllOrderByName();
+
+  List<Idea> findAllOrderByRating();
+
+  List<Idea> findAllByLevelName(String levelName);
+
   Idea save(Idea idea);
 
   Idea saveWithoutActions(Idea idea);
