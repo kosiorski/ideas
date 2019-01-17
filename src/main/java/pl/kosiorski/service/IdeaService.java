@@ -21,6 +21,8 @@ public interface IdeaService {
 
   List<Idea> findAllByLevelName(String levelName);
 
+  List<Idea> findAllByUserId(Long id);
+
   Idea save(Idea idea);
 
   Idea saveWithoutActions(Idea idea);

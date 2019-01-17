@@ -95,4 +95,21 @@ public class IdeaController {
 
     return "idea/details";
   }
+
+  @GetMapping("/edit/{ideaId}")
+  public String editIdea(@PathVariable Long ideaId, Model model) {
+
+    Idea currentIdea = ideaService.findById(ideaId);
+
+    model.addAttribute("command", currentIdea);
+
+    return "user/idea/edit";
+  }
+
+  @PostMapping(value = "/editsave")
+  public String editsave(@ModelAttribute("idea") Idea idea) {
+
+    ideaService.saveWithoutActions(idea);
+    return "redirect:/account";
+  }
 }

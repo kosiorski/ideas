@@ -76,6 +76,11 @@ public class IdeaServiceImpl implements IdeaService {
   }
 
   @Override
+  public List<Idea> findAllByUserId(Long id) {
+    return ideaRepository.findAllByUserId(id);
+  }
+
+  @Override
   public Idea save(Idea idea) {
     idea.setActive(false);
     idea.setRating(0.0);

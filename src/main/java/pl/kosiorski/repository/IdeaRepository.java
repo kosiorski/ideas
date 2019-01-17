@@ -20,4 +20,6 @@ public interface IdeaRepository extends JpaRepository<Idea, Long> {
   List<Idea> findAllByActiveTrueOrderByRatingDesc();
 
   List<Idea> findAllByActiveTrueAndLevelName(String name);
+
+  List<Idea> findAllByUserId(Long id);
 }

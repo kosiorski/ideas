@@ -89,9 +89,7 @@ public class HomepageController {
 
     try {
       User user = userService.findCurrentLoggedUser();
-      model.addAttribute(
-          "userName",
-          "Welcome " + user.getLogin() + " (" + user.getEmail() + ") Id:" + user.getId());
+      model.addAttribute("userName", "logged as: " + user.getLogin());
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
