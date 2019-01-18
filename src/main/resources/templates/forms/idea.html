@@ -20,6 +20,7 @@
     <div class="container">
         <a class="navbar-brand" href="/homepage">
             <img src="https://ninjateam.org/wp-content/uploads/2016/05/icon-idea.png" alt="" th:high="50" th:width="50">
+            Find your Inspiration.
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,40 +60,120 @@
 
         <!--<input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>-->
 
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th> Idea:</th>
+                </tr>
 
-        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
-        <input type="text" th:field="*{name}" placeholder="Name"/>
+                <tbody>
+                <tr>
+                    <td>
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+                        <input type="text" th:field="*{name}" placeholder="Name" style="width: 70%" class="form-control"/>
+                    </td>
+
+                <tr>
+                    <td>
+                        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
+                        <input type="text" th:field="*{description}" placeholder="Description" style="width: 70%"
+                               class="form-control"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label style="width: 70%">
+                            <label th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></label>
+                            <select th:field="*{category}" class="form-control">
+                                <option value="">Select an application category</option>
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:utext="${category.name}"></option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label style="width: 70%">
+                            <label th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></label>
+                            <select th:field="*{level}" class="form-control">
+                                <option value="">Select the difficulty level of the application</option>
+                                <option th:each="level : ${levels}"
+                                        th:value="${level.id}"
+                                        th:utext="${level.name}"></option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label style="width: 70%">
+                            <select multiple th:field="*{tools}" class="form-control">
+                                <option value="">Select the tools you can use to create an application</option>
+                                <option th:each="tool : ${tools}"
+
+                                        th:value="${tool.id}"
+                                        th:utext="${tool.name}"></option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><input type="submit" value="Submit" class="btn btn-lg btn-primary btn-block " style="width: 70%"></p>
+
+                    </td>
+                </tr>
 
 
-        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
-        <input type="text" th:field="*{description}" placeholder="Description"/>
+                </tbody>
+            </table>
+        </div>
 
 
-        <select th:field="*{category}" class="selected">
-            <option value=""> --</option>
-            <option th:each="category : ${categories}"
-                    th:value="${category.id}"
-                    th:utext="${category.name}"></option>
-        </select>
-
-        <select th:field="*{level}" class="selected">
-            <option value=""> --</option>
-            <option th:each="level : ${levels}"
-                    th:value="${level.id}"
-                    th:utext="${level.name}"></option>
-        </select>
+        <!--<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>-->
+        <!--<input type="text" th:field="*{name}" placeholder="Name"/>-->
 
 
-        <select multiple th:field="*{tools}" class="selected">
-            <option value=""> --</option>
-            <option th:each="tool : ${tools}"
-
-                    th:value="${tool.id}"
-                    th:utext="${tool.name}"></option>
-        </select>
+        <!--<label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>-->
+        <!--<input type="text" th:field="*{description}" placeholder="Description"/>-->
 
 
-        <p><input type="submit" value="Submit" class="button"/></p>
+        <!--<label>-->
+        <!--<select th:field="*{category}" class="selected">-->
+        <!--<option value=""> &#45;&#45;</option>-->
+        <!--<option th:each="category : ${categories}"-->
+        <!--th:value="${category.id}"-->
+        <!--th:utext="${category.name}"></option>-->
+        <!--</select>-->
+        <!--</label>-->
+
+        <!--<label>-->
+        <!--<select th:field="*{level}" class="selected">-->
+        <!--<option value=""> &#45;&#45;</option>-->
+        <!--<option th:each="level : ${levels}"-->
+        <!--th:value="${level.id}"-->
+        <!--th:utext="${level.name}"></option>-->
+        <!--</select>-->
+        <!--</label>-->
+
+
+        <!--<label>-->
+        <!--<select multiple th:field="*{tools}" class="selected">-->
+        <!--<option value=""> &#45;&#45;</option>-->
+        <!--<option th:each="tool : ${tools}"-->
+
+        <!--th:value="${tool.id}"-->
+        <!--th:utext="${tool.name}"></option>-->
+        <!--</select>-->
+        <!--</label>-->
+
+
+        <!--<p><input type="submit" value="Submit" class="button"/></p>-->
     </form>
 </div>
 </body>

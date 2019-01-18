@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>Idea Details</title>
+    <title>Edit Idea</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
@@ -52,75 +53,49 @@
     </div>
 </nav>
 
-<div class="container">
+<div>
+    <!--/*@thymesVar id="idea" type="pl.kosiorski.model.Idea"*/-->
+    <form th:action="@{'/admin/editsave'}" th:object="${command}" method="post" class="form-signin">
+
+        <input th:type="hidden" th:field="*{id}" th:value="*{id}"/>
 
 
-    <td th:text="*{idea.name}" class="panel-heading"></td>
-
-    <td th:text="*{idea.description}" class="panel-heading"></td>
-
-    <td th:text="*{idea.rating}" class="panel-heading"></td>
+        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+        <input type="text" th:field="*{name}" placeholder="Name"/>
 
 
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Content</th>
-            <th>Written by</th>
-            <th>Created</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="comment, iterStat: ${comments}" th:object="${comment}">
-            <td th:text="*{content}"></td>
-            <td th:text="*{user.login}"></td>
-            <td th:text="*{created}"></td>
-        </tr>
-        </tbody>
-    </table>
+        <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
+        <input type="text" th:field="*{description}" placeholder="Description"/>
 
 
-    <form th:action="@{'comment/add/'}" th:object="${comment}" method="post" class="form-control">
+        <select th:field="*{category}" class="selected">
+            <option value=""> --</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:utext="${category.name}"></option>
+        </select>
 
-        <!--/*@thymesVar id="comment" type="pl.kosiorski.model.Comment"*/-->
-
-        <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
-        <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
-
-
-        <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
-        <input type="text" th:field="*{content}" placeholder="Add comment"/>
+        <select th:field="*{level}" class="selected">
+            <option value=""> --</option>
+            <option th:each="level : ${levels}"
+                    th:value="${level.id}"
+                    th:utext="${level.name}"></option>
+        </select>
 
 
-        <p><input type="submit" value="Submit" class="form-select-button"/></p>
+        <select multiple th:field="*{tools}" class="selected">
+            <option value=""> --</option>
+            <option th:each="tool : ${tools}"
+
+                    th:value="${tool.id}"
+                    th:utext="${tool.name}"></option>
+        </select>
+
+
+        <p><input type="submit" value="Submit" class="button"/></p>
     </form>
-
-
-    <!--<div>-->
-        <!--<p><a th:href="@{'/homepage'}" th:text="'Return to Home Page'"></a></p>-->
-    <!--</div>-->
-
-    <form th:action="@{'rating/add/'}" th:object="${rating}" method="post" class="form-control">
-
-        <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
-        <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
-
-        <label>
-            <select name='value'>
-                <option value="" disabled selected>Rate this idea</option>
-                <option th:value="1" th:text="1"></option>
-                <option th:value="2" th:text="2"></option>
-                <option th:value="3" th:text="3"></option>
-                <option th:value="4" th:text="4"></option>
-                <option th:value="5" th:text="5"></option>
-            </select>
-        </label>
-        <p><input type="submit" value="Submit" class="form-select-button"/></p>
-    </form>
-
-
 </div>
+
 
 </body>
 </html>

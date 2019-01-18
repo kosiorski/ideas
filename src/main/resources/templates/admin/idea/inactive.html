@@ -19,6 +19,7 @@
     <div class="container">
         <a class="navbar-brand" href="/homepage">
             <img src="https://ninjateam.org/wp-content/uploads/2016/05/icon-idea.png" alt="" th:high="50" th:width="50">
+            Find your Inspiration.
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,6 +65,7 @@
             <th>Created</th>
             <th>Updated</th>
             <th>Edit</th>
+            <th>Delete</th>
             <th>Action</th>
 
 
@@ -82,7 +84,8 @@
             <td th:text="*{created}"></td>
             <td th:text="*{updated}"></td>
 
-            <td><a th:href="@{'edit/' + ${idea.id}}" th:text="'Edit idea'"></a></td>
+            <td><a th:href="@{'edit/' + ${idea.id}}" th:text="'Edit'"></a></td>
+            <td><a th:href="@{'delete/' + ${idea.id}}" th:text="'Delete'"></a></td>
 
 
             <td>

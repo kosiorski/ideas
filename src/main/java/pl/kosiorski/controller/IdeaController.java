@@ -100,16 +100,32 @@ public class IdeaController {
   public String editIdea(@PathVariable Long ideaId, Model model) {
 
     Idea currentIdea = ideaService.findById(ideaId);
-
     model.addAttribute("command", currentIdea);
 
     return "user/idea/edit";
   }
 
   @PostMapping(value = "/editsave")
-  public String editsave(@ModelAttribute("idea") Idea idea) {
+  public String editsave(@Valid Idea idea, BindingResult result) {
 
-    ideaService.saveWithoutActions(idea);
+    if (result.hasErrors()) {
+      return "edit/" + idea.getId();
+    }
+
+    Idea ideaToSave = ideaService.findById(idea.getId());
+    ideaToSave.setName(idea.getName());
+    ideaToSave.setDescription(idea.getDescription());
+    ideaToSave.setCategory(idea.getCategory());
+    ideaToSave.setTools(idea.getTools());
+    ideaToSave.setLevel(idea.getLevel());
+
+    ideaService.saveWithoutActions(ideaToSave);
+    return "redirect:/account";
+  }
+
+  @GetMapping(value = "/delete/{id}")
+  public String delete(@PathVariable Long id) {
+    ideaService.delete(ideaService.findById(id));
     return "redirect:/account";
   }
 }

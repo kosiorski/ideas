@@ -10,8 +10,7 @@ import pl.kosiorski.model.Comment;
 import pl.kosiorski.model.Idea;
 import pl.kosiorski.service.ActivityService;
 import pl.kosiorski.service.CommentService;
-import pl.kosiorski.service.IdeaService;
-import pl.kosiorski.service.UserService;
+
 
 import javax.validation.Valid;
 
@@ -20,19 +19,11 @@ import javax.validation.Valid;
 public class CommentController {
 
   private final CommentService commentService;
-  private final UserService userService;
-  private final IdeaService ideaService;
   private final ActivityService activityService;
 
   @Autowired
-  public CommentController(
-      CommentService commentService,
-      UserService userService,
-      IdeaService ideaService,
-      ActivityService activityService) {
+  public CommentController(CommentService commentService, ActivityService activityService) {
     this.commentService = commentService;
-    this.userService = userService;
-    this.ideaService = ideaService;
     this.activityService = activityService;
   }
 
