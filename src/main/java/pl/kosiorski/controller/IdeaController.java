@@ -19,7 +19,6 @@ public class IdeaController {
   private final CategoryService categoryService;
   private final LevelService levelService;
   private final ToolService toolService;
-  private final RatingService ratingService;
   private final CommentService commentService;
   private final ActivityService activityService;
 
@@ -30,7 +29,6 @@ public class IdeaController {
       CategoryService categoryService,
       LevelService levelService,
       ToolService toolService,
-      RatingService ratingService,
       CommentService commentService,
       ActivityService activityService) {
     this.ideaService = ideaService;
@@ -38,7 +36,6 @@ public class IdeaController {
     this.categoryService = categoryService;
     this.levelService = levelService;
     this.toolService = toolService;
-    this.ratingService = ratingService;
     this.commentService = commentService;
     this.activityService = activityService;
   }

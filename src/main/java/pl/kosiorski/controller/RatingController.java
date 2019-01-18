@@ -41,7 +41,7 @@ class RatingController {
     }
     // when a user tries to vote a second time for the same idea
     catch (Exception e) {
-      e.getMessage();
+      System.out.println(e.getMessage());
     }
 
     double newIdeaRating = ratingService.countRating(idea);

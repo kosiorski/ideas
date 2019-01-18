@@ -54,31 +54,73 @@
 
 <div class="container">
 
+    <div class="form-control">
 
-    <td th:text="*{idea.name}" class="panel-heading"></td>
+        <br>
+        <br>
+        <div>
+            <h5>
+                Title:<br>
+                <td th:text="*{idea.name}"></td>
+            </h5>
+        </div>
+        <hr>
 
-    <td th:text="*{idea.description}" class="panel-heading"></td>
+        <div>
+            <h6>Description:<br>
+                <td th:text="*{idea.description}"></td>
+            </h6>
+        </div>
 
-    <td th:text="*{idea.rating}" class="panel-heading"></td>
+
+    </div>
+
+    <div class="form-control">
+        <table class="table">
+            <tr>
+                <th>Rating:</th>
+                <th>Level:</th>
+                <th>Created by:</th>
+                <th>The tools you can use:</th>
+            </tr>
 
 
+            <tr>
+                <td th:text="*{idea.rating}"></td>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Content</th>
-            <th>Written by</th>
-            <th>Created</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="comment, iterStat: ${comments}" th:object="${comment}">
-            <td th:text="*{content}"></td>
-            <td th:text="*{user.login}"></td>
-            <td th:text="*{created}"></td>
-        </tr>
-        </tbody>
-    </table>
+                <td th:text="*{idea.level.getName()}"></td>
+
+                <td th:text="*{idea.user.getLogin()}"></td>
+
+                <td th:each="tool: ${idea.tools}">
+                    <label th:text="${tool.getName()}"> </label>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-control">
+        <h5>Comments: </h5>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Content</th>
+                <th>Written by</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment, iterStat: ${comments}" th:object="${comment}">
+                <td th:text="*{content}"></td>
+                <td th:text="*{user.login}"></td>
+                <td th:text="*{created}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
     <form th:action="@{'comment/add/'}" th:object="${comment}" method="post" class="form-control">
@@ -89,24 +131,24 @@
         <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
 
 
-        <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label>
-        <input type="text" th:field="*{content}" placeholder="Add comment"/>
+        <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label><br>
+        <input type="text" th:field="*{content}" placeholder="Add comment" class="form-control"/>
 
 
         <p><input type="submit" value="Submit" class="form-select-button"/></p>
     </form>
 
 
-    <!--<div>-->
-        <!--<p><a th:href="@{'/homepage'}" th:text="'Return to Home Page'"></a></p>-->
-    <!--</div>-->
-
     <form th:action="@{'rating/add/'}" th:object="${rating}" method="post" class="form-control">
 
-        <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
-        <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
-
         <label>
+            <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
+        </label>
+        <label>
+            <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
+        </label>
+
+        <label style="width: 70%">
             <select name='value'>
                 <option value="" disabled selected>Rate this idea</option>
                 <option th:value="1" th:text="1"></option>
@@ -115,7 +157,7 @@
                 <option th:value="4" th:text="4"></option>
                 <option th:value="5" th:text="5"></option>
             </select>
-        </label>
+        </label><br>
         <p><input type="submit" value="Submit" class="form-select-button"/></p>
     </form>
 

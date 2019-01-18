@@ -76,6 +76,7 @@
                 <tr>
                     <td>
                         <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
+
                         <input type="text" th:field="*{description}" placeholder="Description" style="width: 70%"
                                class="form-control"/>
                     </td>

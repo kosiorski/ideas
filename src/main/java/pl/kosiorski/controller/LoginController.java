@@ -56,10 +56,7 @@ public class LoginController {
       Activity activity = new Activity();
       activity.setContent("A new user with login " + user.getLogin() + " has registered");
       activityService.save(activity);
-
     }
     return "/registration";
   }
-
-
 }
