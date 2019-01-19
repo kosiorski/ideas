@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Active Ideas</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/homepage">
+            <img src="https://ninjateam.org/wp-content/uploads/2016/05/icon-idea.png" alt="" th:high="50" th:width="50">
+            Find your Inspiration.
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account">Account</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" href="/admin/home">Admin Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Difficulty</th>
+            <th>Ratting</th>
+            <th>Added by</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Action</th>
+
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="idea, iterStat: ${active}" th:object="${idea}">
+
+            <td th:text="*{name}"></td>
+            <td th:text="*{description}"></td>
+            <td th:text="*{category.name}"></td>
+            <td th:text="*{level.name}"></td>
+            <td th:text="*{rating}"></td>
+            <td th:text="*{user.login}"></td>
+            <td th:text="*{created}"></td>
+            <td th:text="*{updated}"></td>
+
+            <td><a th:href="@{'edit/' + ${idea.id}}" th:text="'Edit'"></a></td>
+            <td><a th:href="@{'delete/' + ${idea.id}}" th:text="'Delete'"></a></td>
+
+
+            <td>
+                <a th:href="@{'active/change-status/'+${idea.id}}">
+                    <span th:if="*{active}" th:text="'Deactivate'"></span>
+                    <span th:if="*{!active}" th:text="'Activate'"></span>
+                </a>
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Idea Details</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/homepage">
+            <img src="https://ninjateam.org/wp-content/uploads/2016/05/icon-idea.png" alt="" th:high="50" th:width="50">
+            Find your Inspiration.
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account">Account</a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+                    <a class="nav-link" href="/admin/home">Admin Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="form-control">
+
+        <br>
+        <br>
+        <div>
+            <h5>
+                Title:<br>
+                <td th:text="*{idea.name}"></td>
+            </h5>
+        </div>
+        <hr>
+
+        <div>
+            <h6>Description:<br>
+                <td th:text="*{idea.description}"></td>
+            </h6>
+        </div>
+
+
+    </div>
+
+    <div class="form-control">
+        <table class="table">
+            <tr>
+                <th>Rating:</th>
+                <th>Level:</th>
+                <th>Created by:</th>
+                <th>The tools you can use:</th>
+            </tr>
+
+
+            <tr>
+                <td th:text="*{idea.rating}"></td>
+
+                <td th:text="*{idea.level.getName()}"></td>
+
+                <td th:text="*{idea.user.getLogin()}"></td>
+
+                <td th:each="tool: ${idea.tools}">
+                    <label th:text="${tool.getName()}"> </label>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-control">
+        <h5>Comments: </h5>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Content</th>
+                <th>Written by</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment, iterStat: ${comments}" th:object="${comment}">
+                <td th:text="*{content}"></td>
+                <td th:text="*{user.login}"></td>
+                <td th:text="*{created}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <form th:action="@{'comment/add/'}" th:object="${comment}" method="post" class="form-control">
+
+        <!--/*@thymesVar id="comment" type="pl.kosiorski.model.Comment"*/-->
+
+        <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
+        <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
+
+
+        <label th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></label><br>
+        <input type="text" th:field="*{content}" placeholder="Add comment" class="form-control"/>
+
+
+        <p><input type="submit" value="Submit" class="form-select-button"/></p>
+    </form>
+
+
+    <form th:action="@{'rating/add/'}" th:object="${rating}" method="post" class="form-control">
+
+        <label>
+            <input th:type="hidden" th:value="*{user.id}" th:field="*{user}"/>
+        </label>
+        <label>
+            <input th:type="hidden" th:value="*{idea.id}" th:field="*{idea}"/>
+        </label>
+
+        <label style="width: 70%">
+            <select name='value'>
+                <option value="" disabled selected>Rate this idea</option>
+                <option th:value="1" th:text="1"></option>
+                <option th:value="2" th:text="2"></option>
+                <option th:value="3" th:text="3"></option>
+                <option th:value="4" th:text="4"></option>
+                <option th:value="5" th:text="5"></option>
+            </select>
+        </label><br>
+        <p><input type="submit" value="Submit" class="form-select-button"/></p>
+    </form>
+
+
+</div>
+
+</body>
+</html>
