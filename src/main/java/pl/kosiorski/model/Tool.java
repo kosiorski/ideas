@@ -1,6 +1,5 @@
 package pl.kosiorski.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,8 +19,7 @@ public class Tool {
   @Column(name = "tool_id")
   private Long id;
 
-  @NotBlank
-  private String name;
+  @NotBlank private String name;
 
   @ManyToMany(mappedBy = "tools")
   private List<Idea> ideas = new ArrayList<>();

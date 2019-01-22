@@ -71,6 +71,13 @@ public class Idea {
 
   private boolean active;
 
+  private static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+  }
 
   public Boolean getActive() {
     return active;
@@ -82,13 +89,5 @@ public class Idea {
 
   public double getRating() {
     return round(rating, 2);
-  }
-
-  private static double round(double value, int places) {
-    if (places < 0) throw new IllegalArgumentException();
-
-    BigDecimal bd = new BigDecimal(value);
-    bd = bd.setScale(places, RoundingMode.HALF_UP);
-    return bd.doubleValue();
   }
 }

@@ -13,22 +13,15 @@ import java.util.List;
 public class IdeaServiceImpl implements IdeaService {
 
   private final IdeaRepository ideaRepository;
-  private final UserService userService;
 
   @Autowired
-  public IdeaServiceImpl(IdeaRepository ideaRepository, UserService userService) {
+  public IdeaServiceImpl(IdeaRepository ideaRepository) {
     this.ideaRepository = ideaRepository;
-    this.userService = userService;
   }
 
   @Override
   public Idea findById(Long id) {
     return ideaRepository.findById(id).get();
-  }
-
-  @Override
-  public Idea findByName(String name) {
-    return ideaRepository.findByName(name);
   }
 
   @Override
@@ -89,13 +82,6 @@ public class IdeaServiceImpl implements IdeaService {
 
   @Override
   public Idea saveWithoutActions(Idea idea) {
-    return ideaRepository.save(idea);
-  }
-
-  @Override
-  public Idea update(Idea idea) {
-    idea.setActive(false);
-    idea.setUser(userService.findCurrentLoggedUser());
     return ideaRepository.save(idea);
   }
 

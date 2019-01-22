@@ -12,6 +12,4 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
   List<Comment> findAllByActiveTrueAndIdeaIdOrderByCreatedAsc(Long id);
 
   List<Comment> findAllByActiveFalseAndIdeaIdOrderByCreatedAsc(Long id);
-
-
 }

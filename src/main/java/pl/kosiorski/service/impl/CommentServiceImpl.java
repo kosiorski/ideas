@@ -17,11 +17,6 @@ public class CommentServiceImpl implements CommentService {
     this.commentRepository = commentRepository;
   }
 
-//  @Override
-//  public List<Comment> findAllByIdeaId(Long id) {
-//    return commentRepository.findAllByIdeaIdOrderByCreatedAsc(id);
-//  }
-
   @Override
   public void save(Comment comment) {
     comment.setActive(true);

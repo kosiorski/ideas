@@ -15,18 +15,11 @@ import pl.kosiorski.service.UserService;
 @RequestMapping("/admin")
 public class AdminHomepageController {
   private final UserService userService;
-  private final IdeaService ideaService;
 
   @Autowired
-  public AdminHomepageController(UserService userService, IdeaService ideaService) {
+  public AdminHomepageController(UserService userService) {
     this.userService = userService;
-    this.ideaService = ideaService;
   }
-
-//  @ModelAttribute
-//  public void modelAttributes(Model model) {
-//    model.addAttribute("ideas", ideaService.findAllActive());
-//  }
 
   @GetMapping(value = "/home")
   public String adminHome(Model model) {
