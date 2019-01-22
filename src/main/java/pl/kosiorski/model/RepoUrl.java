@@ -1,6 +1,5 @@
 package pl.kosiorski.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
@@ -23,5 +22,4 @@ public class RepoUrl {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
-
 }

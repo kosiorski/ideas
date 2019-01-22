@@ -1,6 +1,5 @@
 package pl.kosiorski.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +19,7 @@ public class Comment {
   @Column(name = "comment_id")
   private Long id;
 
-  @NotBlank (message = "your comment is empty")
+  @NotBlank(message = "your comment is empty")
   private String content;
 
   @CreationTimestamp
@@ -43,6 +42,4 @@ public class Comment {
   public void setActive(Boolean active) {
     this.active = active;
   }
-
-
 }

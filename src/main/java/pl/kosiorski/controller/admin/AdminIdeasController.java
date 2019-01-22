@@ -16,18 +16,12 @@ import pl.kosiorski.service.UserService;
 @Controller
 @RequestMapping("/admin/idea")
 public class AdminIdeasController {
-  private final UserService userService;
   private final IdeaService ideaService;
 
   @Autowired
-  public AdminIdeasController(UserService userService, IdeaService ideaService) {
-    this.userService = userService;
+  public AdminIdeasController(IdeaService ideaService) {
     this.ideaService = ideaService;
   }
-
-  //  @ModelAttribute
-  //  public void modelAttributes(Model model) {
-  //  }
 
   @GetMapping(value = "/active")
   public String activeIdeas(Model model) {

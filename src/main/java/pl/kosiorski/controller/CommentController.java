@@ -1,16 +1,15 @@
 package pl.kosiorski.controller;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.kosiorski.model.Activity;
 import pl.kosiorski.model.Comment;
 import pl.kosiorski.model.Idea;
 import pl.kosiorski.service.ActivityService;
 import pl.kosiorski.service.CommentService;
-
 
 import javax.validation.Valid;
 
@@ -48,4 +47,5 @@ public class CommentController {
 
     return "redirect:/idea/" + idea.getId();
   }
+
 }

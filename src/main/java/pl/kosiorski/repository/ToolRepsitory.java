@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository;
 import pl.kosiorski.model.Tool;
 
 @Repository
-public interface ToolRepsitory extends JpaRepository<Tool, Long> {
-}
+public interface ToolRepsitory extends JpaRepository<Tool, Long> {}

@@ -6,5 +6,5 @@ import pl.kosiorski.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByLogin(String login);
+  User findByLogin(String login);
 }

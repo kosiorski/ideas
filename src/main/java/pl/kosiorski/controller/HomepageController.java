@@ -32,15 +32,6 @@ public class HomepageController {
     this.activityService = activityService;
   }
 
-  private static BoredActivity getBoredActivity() {
-    final String uri = "http://www.boredapi.com/api/activity/";
-
-    RestTemplate restTemplate = new RestTemplate();
-    String json = restTemplate.getForObject(uri, String.class);
-
-    return new Gson().fromJson(json, BoredActivity.class);
-  }
-
   @ModelAttribute("currentUser")
   public User currentUser() {
     try {
@@ -95,5 +86,14 @@ public class HomepageController {
     }
 
     return "/homepage";
+  }
+
+  private static BoredActivity getBoredActivity() {
+    final String uri = "http://www.boredapi.com/api/activity/";
+
+    RestTemplate restTemplate = new RestTemplate();
+    String json = restTemplate.getForObject(uri, String.class);
+
+    return new Gson().fromJson(json, BoredActivity.class);
   }
 }
