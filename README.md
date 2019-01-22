@@ -12,3 +12,6 @@ Used stack:
 * MySql
 * HTML, CSS, Bootstrap, Thymeleaf
 * Bored API (http://www.boredapi.com/)
+
+Screenshot:
+![alt text](https://ibb.co/hWGxWDc)
