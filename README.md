@@ -20,6 +20,7 @@ Features:
 * Comments
 * Rating ideas
 * Approval of ideas by the admin
+* Last Activities
 
 Application in progress
 
