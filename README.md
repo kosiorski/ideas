@@ -7,7 +7,7 @@ Used stack:
 * Spring Boot
 * Hibernate
 * Project Lombok
-* Spting Security
+* Spring Security
 * MySql
 * HTML, CSS, Bootstrap, Thymeleaf
 * Bored API (http://www.boredapi.com/)
